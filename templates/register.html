@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container text-center">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2 class="login-heading">Register</h2>
+                    <form method="POST" action="{{ url_for('register') }}" class="login-form">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <div class="alert" role="alert">
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        
+                        <div class="form-group mb-3">
+                            <label for="username" class="form-label login-label">Username:</label>
+                            <input type="text" class="form-control login-input-line" name="username" id="username" required onfocus="expandInput(this)" onblur="collapseInput(this)">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label login-label">Email:</label>
+                            <input type="email" class="form-control login-input-line" name="email" id="email" required onfocus="expandInput(this)" onblur="collapseInput(this)">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="password" class="form-label login-label">Password:</label>
+                            <input type="password" class="form-control login-input-line" name="password" id="password" required onfocus="expandInput(this)" onblur="collapseInput(this)">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="confirm-password" class="form-label login-label">Confirm Password:</label>
+                            <input type="password" class="form-control login-input-line" name="confirm-password" id="confirm-password" required onfocus="expandInput(this)" onblur="collapseInput(this)">
+                        </div>
+                        <button type="submit" class="btn btn-primary login-button">Register</button>
+                        <a href="{{ url_for('login') }}" class="login-register-link">Already have an account? Login here</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function expandInput(input) {
+            input.style.height = '30px'; 
+            input.style.borderBottom = '2px solid #7289DA'; 
+            input.previousElementSibling.style.transform = 'translateY(-20px)';
+            input.previousElementSibling.style.fontSize = '0.8em'; 
+        }
+
+        function collapseInput(input) {
+            if (input.value === '') {
+                input.style.height = '2px'; 
+                input.style.borderBottom = '1px solid #3A3F44';
+                input.previousElementSibling.style.transform = 'translateY(0)'; 
+                input.previousElementSibling.style.fontSize = '1em'; 
+            }
+        }
+
+        // Function to hide alert after 4 seconds
+        window.onload = function() {
+            var alertBox = document.querySelector('.alert');
+            if (alertBox) {
+                setTimeout(function() {
+                    alertBox.classList.add('fade'); // Adds the fade effect
+                    alertBox.style.display = 'none'; // Hides the alert
+                }, 4000); // 4 seconds timeout
+            }
+        }
+    </script>
+</body>
+</html>
